@@ -5,15 +5,14 @@ const {sendtoken }= require('../utils/feature');
 const cookieOption=require('../utils/feature'); // 
 // Register user
 exports.register = async (req, res,next) => {
-  const { username, email, password } = req.body;
+  const { email, password } = req.body;
     try {
 
-      if (!username) {
-        return res.status(400).json({ message: 'userName is required' });
+      if (!email) {
+        return res.status(400).json({ message: 'email is required' });
       }
     const hashedPassword = await bcrypt.hash(password, 10);
     const user = new User({
-      username,
       email,
       password: hashedPassword
     });
@@ -35,7 +34,7 @@ exports.login = async (req, res,next) => {
     const isMatch = await bcrypt.compare(password, user.password);
     if (!isMatch) return res.status(400).json({ message: 'Invalid credentials' });
 
-    sendtoken(res, user, 201, `Welcome Back , ${user.userName}`);
+    sendtoken(res, user, 201, `Welcome Back , ${user.email}`);
   } catch (error) {
     res.status(500).json({ message: error.message });
   }
