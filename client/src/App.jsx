@@ -15,7 +15,7 @@ const App = () => {
   const { user } = useSelector((state) => state.auth);
   useEffect(() => {
     axios
-      .get(`${server}api/auth/`, { withCredentials: true })
+      .get(`${server}/api/auth/`, { withCredentials: true })
       .then(({ data }) => {
         dispatch(userExist(data.data));
       })
