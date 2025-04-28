@@ -7,7 +7,7 @@ This is a Task MAnger application built with React, Node.js, Express, MongoDB . 
 
 ## Demo
 Live Link:
-https://task-manaer-ebs5.vercel.app/login
+https://task-manaer-ebs5.vercel.app
 
 ### Guest Login Credentials
 To explore the application without creating an account, you can use the following guest login credentials:
