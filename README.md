@@ -7,14 +7,14 @@ This is a Task MAnger application built with React, Node.js, Express, MongoDB . 
 
 ## Demo
 Live Link:
-https://mern-chat-app-u26b.vercel.app/
+https://task-manaer-ebs5.vercel.app/login
 
 ### Guest Login Credentials
 To explore the application without creating an account, you can use the following guest login credentials:
 
 #### Guest User 1
 ```bash
- email: demo@gmail.com
+ email: example@gmail.com
  Password: 12345678
 ```
 Simply enter these credentials on the login page to access the application as a guest.
