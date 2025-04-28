@@ -1,5 +1,5 @@
 import { useState } from "react";
-// import { server } from '../constants/config';
+import { server } from '../constants/config';
 import { useDispatch } from "react-redux";
 import { userExist } from '../redux/reducers/auth';
 import toast from 'react-hot-toast';
@@ -19,7 +19,7 @@ export default function LoginRegister() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const { data } = await axios.post(`http://localhost:5000/api/auth/login`, {
+      const { data } = await axios.post(`${server}/api/auth/login`, {
         email: email.value,
         password: Password.value,
       }, {
@@ -42,7 +42,7 @@ export default function LoginRegister() {
     e.preventDefault();
     setIsLoading(true);
     try {
-      const { data } = await axios.post(`http://localhost:5000/api/auth/register`, {
+      const { data } = await axios.post(`${server}/api/auth/register`, {
         username: Username.value,
         email: email.value,
         password: Password.value,
