@@ -2,7 +2,7 @@
 # Task Manager Application
 
 
-This is a Task MAnger application built with React, Node.js, Express, MongoDB . It allows users to add task and update delete seamlessly.
+This is a Task Manager application built with React, Node.js, Express, MongoDB . It allows users to add task and update delete seamlessly.
 
 
 ## Demo
@@ -27,7 +27,7 @@ Simply enter these credentials on the login page to access the application as a 
 - Frontend: React ,TailwindCss(Client)
 - Backend: Node.js, Express
 - Database: MongoDB 
-- Hosting: Render.com, Vercal (optional)
+- Hosting: Vercal
 
 
 ## Run Locally
@@ -56,6 +56,7 @@ Clone the project
   PORT=5000
   MONGODB_URI='your-mongodb-connection-string'
   JWT_SECRET='your-secret-key'
+  CLIENT_URL='your-url'
 ```
 
 4.Start the Backend Server
