@@ -3,13 +3,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import axios from 'axios';
 import { userNotExists } from '../redux/reducers/auth';
 import toast from 'react-hot-toast';
+import {server} from '../constants/config'
 
 const Navbar = () => {
   const { user } = useSelector((state) => state.auth);
   const dispatch=useDispatch()
   const logoutHandler = async () => {
     try {
-      const { data } = await axios.get(`http://localhost:5000/api/auth/logout/`, { withCredentials: true });
+      const { data } = await axios.get(`${server}/api/auth/logout/`, { withCredentials: true });
       dispatch(userNotExists());
       toast.success(data.message);
     } catch (error) {
