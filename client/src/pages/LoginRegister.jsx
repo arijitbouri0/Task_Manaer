@@ -1,38 +1,43 @@
+
+import {server} from '../constants/config';
 import { useState } from "react";
-import { server } from '../constants/config';
 import { useDispatch } from "react-redux";
 import { userExist } from '../redux/reducers/auth';
 import toast from 'react-hot-toast';
 import axios from 'axios';
-import { useInputValidation, useStrongPassword } from '6pp';
 
 export default function LoginRegister() {
   const [isLogin, setIsLogin] = useState(true);
   const [isLoading, setIsLoading] = useState(false);
-  const Username = useInputValidation('', { required: true, minLength: 3 });
-  const email = useInputValidation('', { required: true, pattern: /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/ });
-  const Password = useStrongPassword();
+
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const dispatch = useDispatch();
+
+  const resetFields = () => {
+    setEmail('');
+    setPassword('');
+  };
 
   const handleLogin = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+
     try {
       const { data } = await axios.post(`${server}/api/auth/login`, {
-        email: email.value,
-        password: Password.value,
+        email,
+        password,
       }, {
         withCredentials: true,
-        headers: {
-          "Content-Type": "application/json"
-        }
+        headers: { "Content-Type": "application/json" },
       });
-      console.log(data);
+
       dispatch(userExist(data.user));
       toast.success(data.message);
+      resetFields();
     } catch (error) {
-      toast.error(error.response.data.message || "Something Went Wrong");
+      toast.error(error.response?.data?.message || "Something Went Wrong");
     } finally {
       setIsLoading(false);
     }
@@ -41,21 +46,21 @@ export default function LoginRegister() {
   const handleRegister = async (e) => {
     e.preventDefault();
     setIsLoading(true);
+
     try {
       const { data } = await axios.post(`${server}/api/auth/register`, {
-        username: Username.value,
-        email: email.value,
-        password: Password.value,
+        email,
+        password,
       }, {
         withCredentials: true,
-        headers: {
-          'Content-Type': 'application/json',
-        },
+        headers: { "Content-Type": "application/json" },
       });
+
       dispatch(userExist(data.user));
       toast.success(data.message);
+      resetFields();
     } catch (error) {
-      toast.error(error.response.data.message || "Something Went Wrong");
+      toast.error(error.response?.data?.message || "Something Went Wrong");
     } finally {
       setIsLoading(false);
     }
@@ -88,8 +93,8 @@ export default function LoginRegister() {
               <label className="block mb-1 font-semibold">Email</label>
               <input
                 type="email"
-                value={email.value}
-                onChange={email.changeHandler}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                 placeholder="Enter your email"
                 required
@@ -99,8 +104,8 @@ export default function LoginRegister() {
               <label className="block mb-1 font-semibold">Password</label>
               <input
                 type="password"
-                value={Password.value}
-                onChange={Password.changeHandler}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                 placeholder="Enter your password"
                 required
@@ -117,21 +122,11 @@ export default function LoginRegister() {
         ) : (
           <form className="space-y-5" onSubmit={handleRegister}>
             <div>
-              <label className="block mb-1 font-semibold">Username</label>
-              <input
-                type="text"
-                value={Username.value}
-                onChange={Username.changeHandler}
-                className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
-                placeholder="Choose a username"
-              />
-            </div>
-            <div>
               <label className="block mb-1 font-semibold">Email</label>
               <input
                 type="email"
-                value={email.value}
-                onChange={email.changeHandler}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                 placeholder="Enter your email"
                 required
@@ -141,8 +136,8 @@ export default function LoginRegister() {
               <label className="block mb-1 font-semibold">Password</label>
               <input
                 type="password"
-                value={Password.value}
-                onChange={Password.changeHandler}
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
                 className="w-full px-4 py-2 border rounded-md focus:outline-none focus:ring-2 focus:ring-blue-400"
                 placeholder="Create a password"
                 required
@@ -152,7 +147,6 @@ export default function LoginRegister() {
               type="submit"
               disabled={isLoading}
               className="w-full bg-blue-500 hover:bg-white border border-transparent hover:border-blue-500 transition duration-300 hover:text-blue-500 text-white py-2 rounded-md font-semibold cursor-pointer"
-              required
             >
               {isLoading ? 'Registering...' : 'Register'}
             </button>
