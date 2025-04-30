@@ -16,9 +16,14 @@ app.use(
   );
 //Connect to MongoDB
 const mongoURI = process.env.MONGO_URI 
-connectDB(mongoURI).then(()=>{
-    console.log('Connected to MongoDB');
-});
+(async () => {
+  try {
+    await connectDB(mongoURI);
+    console.log('Connected to MongoDB (Vercel)');
+  } catch (error) {
+    console.error('DB Connection Error:', error);
+  }
+})();
 
 // Basic route
 app.get('/', (req, res) => {
