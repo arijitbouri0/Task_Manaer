@@ -15,7 +15,9 @@ app.use(
     cors(corsOptions)
   );
 //Connect to MongoDB
-const mongoURI = process.env.MONGO_URI 
+const mongoURI = process.env.MONGO_URI
+
+    
 (async () => {
   try {
     await connectDB(mongoURI);
