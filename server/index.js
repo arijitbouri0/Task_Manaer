@@ -1,4 +1,4 @@
-aconst express = require('express');
+const express = require('express');
 const connectDB = require('./utils/connectDB');
 const cors = require('cors');
 require('dotenv').config();
