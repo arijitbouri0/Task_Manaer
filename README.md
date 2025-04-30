@@ -17,6 +17,11 @@ To explore the application without creating an account, you can use the followin
  email: example@gmail.com
  Password: 12345678
 ```
+#### Guest User 2
+```bash
+ email: demo@gmail.com
+ Password: 12345678
+```
 Simply enter these credentials on the login page to access the application as a guest.
 
 ## Features
